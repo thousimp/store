@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THOU SIMP | Modern Classicals</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #fdfcf8;
+        --charcoal: #1a1a1a;
+        --gold: #b5935a;
+        --light-gray: #f4f4f4;
+        --transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      /* Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--cream);
+        color: var(--charcoal);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      h1,
+      h2,
+      h3,
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-weight: 400;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      ul {
+        list-style: none;
+      }
+
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 5%;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        transition: var(--transition);
+      }
+      nav.glass {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        padding: 1rem 5%;
+      }
+      .logo {
+        font-size: 1.8rem;
+        letter-spacing: 6px;
+        cursor: pointer;
+        text-transform: uppercase;
+      }
+      nav ul {
+        display: flex;
+        gap: 2.5rem;
+      }
+      nav ul li {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        position: relative;
+      }
+      nav ul li::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -5px;
+        left: 0;
+        background: var(--gold);
+        transition: 0.3s;
+      }
+      nav ul li:hover::after {
+        width: 100%;
+      }
+      .cart-icon-wrapper {
+        position: relative;
+      }
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -15px;
+        background: var(--gold);
+        color: white;
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        border-radius: 50%;
+      }
+
+      /* Page Management */
+      .page {
+        display: none;
+        min-height: 100vh;
+        animation: pageFade 0.8s ease forwards;
+      }
+      .page.active {
+        display: block;
+      }
+      @keyframes pageFade {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* HERO SECTION (Home) */
+      .hero {
+        height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+      }
+      #hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        filter: brightness(0.6);
+      }
+      .hero-content h1 {
+        font-size: clamp(3rem, 10vw, 6rem);
+        margin-bottom: 1rem;
+        font-style: italic;
+      }
+      .hero-content p {
+        font-size: 1rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 2.5rem;
+      }
+
+      /* STORE SECTION */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 100px 5%;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3rem;
+      }
+      .product-card {
+        background: white;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+      .product-card:hover {
+        transform: translateY(-10px);
+      }
+      .product-image {
+        width: 100%;
+        height: 450px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+      }
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.8s;
+      }
+      .product-card:hover img {
+        transform: scale(1.1);
+      }
+      .product-info {
+        text-align: center;
+        padding: 1rem;
+      }
+      .product-name {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+      .product-price {
+        color: var(--gold);
+        font-weight: 500;
+      }
+
+      /* ABOUT SECTION */
+      .about-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      .about-text h2 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+      }
+      .about-text p {
+        margin-bottom: 1.5rem;
+        color: #666;
+        font-size: 1.1rem;
+      }
+      .about-image img {
+        width: 100%;
+        border-radius: 2px;
+      }
+
+      /* CART SECTION */
+      .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .cart-table th {
+        text-align: left;
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+      .cart-table td {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .cart-summary {
+        margin-top: 3rem;
+        text-align: right;
+      }
+
+      /* CHECKOUT SECTION */
+      .checkout-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 4rem;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        color: var(--gold);
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        background: white;
+        font-family: inherit;
+      }
+      .order-summary-box {
+        background: var(--light-gray);
+        padding: 30px;
+        border-radius: 4px;
+      }
+
+      /* Buttons */
+      .btn {
+        padding: 18px 40px;
+        border: 1px solid var(--charcoal);
+        background: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.7rem;
+        transition: 0.3s;
+      }
+      .btn-filled {
+        background: var(--charcoal);
+        color: white;
+      }
+      .btn-filled:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+      }
+      .btn:hover {
+        background: var(--charcoal);
+        color: white;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .about-layout,
+        .checkout-grid {
+          grid-template-columns: 1fr;
+        }
+        nav ul {
+          display: none;
+        } /* Simplified for mobile */
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="main-nav">
+      <div class="logo" onclick="navigateTo('home')">THOU SIMP</div>
+      <ul>
+        <li onclick="navigateTo('home')">Home</li>
+        <li onclick="navigateTo('store')">Store</li>
+        <li onclick="navigateTo('about')">About</li>
+      </ul>
+      <div
+        class="cart-icon-wrapper"
+        onclick="navigateTo('cart')"
+        style="cursor: pointer"
+      >
+        <span style="font-size: 0.8rem; letter-spacing: 1px">BAG</span>
+        <span class="cart-count" id="cart-count">0</span>
+      </div>
+    </nav>
+
+    <div id="home" class="page active">
+      <section class="hero">
+        <video autoplay muted loop id="hero-video">
+          <source src="assets/vid/header.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-content">
+          <p>New Season 2026</p>
+          <h1>Thou Simp Clothing Store</h1>
+          <button
+            class="btn btn-filled"
+            onclick="navigateTo('store')"
+            style="color: white; border-color: white"
+          >
+            Shop the Collection
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div id="store" class="page">
+      <div class="container">
+        <h2 class="section-title">The Collection</h2>
+        <div class="product-grid" id="product-list"></div>
+      </div>
+    </div>
+
+    <div id="about" class="page">
+      <div class="container">
+        <div class="about-layout">
+          <div class="about-image">
+            <img src="assets/images/thou/products/team.jpg" alt="Atelier" />
+          </div>
+          <div class="about-text">
+            <h2>Our Philosophy</h2>
+            <p>
+              THOU SIMP is more than a clothing brand — it's a state of being.
+              Born from the spirit of simplicity, self-awareness, and soulful
+              expression, our designs reflect a lifestyle rooted in nature,
+              peace, and the quiet power of positivity. We believe that what you
+              wear is an extension of what you stand for, and in a world full of
+              noise, we choose calm.
+            </p>
+
+            <p>
+              Our alternate range, THOU SERENE, is a deeper breath of that same
+              philosophy — a softer echo that leans into tranquility and
+              minimalism. Inspired by earth tones, gentle aesthetics, and the
+              inner stillness we all seek, THOU SERENE is for those who move
+              through life with grace, intention, and heart.
+            </p>
+
+            <p>
+              Whether you live loud or move gently, whether you lead the crowd
+              or retreat into nature — our brand is a reminder that peace is a
+              power, and presence is a statement.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cart" class="page">
+      <div class="container">
+        <h2 class="section-title">Your Shopping Bag</h2>
+        <div id="cart-content"></div>
+      </div>
+    </div>
+
+    <div id="checkout" class="page">
+      <div class="container">
+        <h2 class="section-title">Secure Checkout</h2>
+        <div class="checkout-grid">
+          <form id="checkout-form" onsubmit="processOrder(event)">
+            <h3 style="margin-bottom: 20px">Shipping & Personal Details</h3>
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Jane Doe" required />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input
+                type="email"
+                id="email-input"
+                placeholder="jane@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Shipping Address</label>
+              <input type="text" placeholder="123 Luxury Lane" required />
+            </div>
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px"
+            >
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" placeholder="New York" required />
+              </div>
+              <div class="form-group">
+                <label>Postal Code</label>
+                <input type="text" placeholder="10001" required />
+              </div>
+            </div>
+            <h3 style="margin: 30px 0 20px">Payment Information</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px">
+              Payment details will be sent to your email after order
+              confirmation.
+            </p>
+            <button type="submit" class="btn btn-filled" style="width: 100%">
+              Confirm & Place Order
+            </button>
+          </form>
+
+          <div class="order-summary-box">
+            <h3>Order Summary</h3>
+            <div id="order-summary-list" style="margin: 20px 0"></div>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0" />
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                font-weight: bold;
+                font-size: 1.2rem;
+              "
+            >
+              <span>Total</span>
+              <span id="final-total">R0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Website Data
+      let rootPath = "https://thousimp.pythonanywhere.com/api/products/";
+
+      let products = [];
+
+      let cart = [];
+
+      // Navigation Controller
+      function navigateTo(pageId) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById(pageId).classList.add("active");
+        window.scrollTo(0, 0);
+
+        // Change Nav Style based on page
+        const nav = document.getElementById("main-nav");
+        if (pageId === "home") {
+          nav.classList.remove("glass");
+          nav.style.color = "white";
+        } else {
+          nav.classList.add("glass");
+          nav.style.color = "black";
+        }
+
+        if (pageId === "cart") renderCart();
+        if (pageId === "checkout") renderCheckoutSummary();
+      }
+
+      // Initialize Store
+
+      async function initStore() {
+        const list = document.getElementById("product-list");
+        list.innerHTML =
+          "<p style='text-align:center'>Loading collection...</p>";
+
+        try {
+          const response = await fetch(rootPath);
+
+          if (!response.ok) {
+            throw new Error("Failed to load products");
+          }
+
+          products = await response.json();
+
+          list.innerHTML = products
+            .map(
+              (p) => `
+          <div class="product-card">
+            <div class="product-image">
+              <img src="${p.image}" alt="${p.name}">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">${p.name}</h3>
+              <p class="product-price">R${p.price}</p>
+              <button
+                class="btn"
+                style="margin-top: 15px;"
+                onclick="addToCart(${p.id})"
+              >
+                Add to Bag
+              </button>
+            </div>
+          </div>
+        `
+            )
+            .join("");
+        } catch (error) {
+          console.error(error);
+          list.innerHTML = `
+      <p style="text-align:center; color:#999;">
+        Unable to load products at this time.
+      </p>
+    `;
+        }
+      }
+
+      // Cart Logic
+      function addToCart(id) {
+        const product = products.find((p) => p.id === id);
+        cart.push(product);
+        document.getElementById("cart-count").innerText = cart.length;
+        alert(`${product.name} added to your bag.`);
+      }
+
+      function renderCart() {
+        const container = document.getElementById("cart-content");
+        if (cart.length === 0) {
+          container.innerHTML = `<div style="text-align:center; padding: 50px;">
+                    <p>Your shopping bag is empty.</p><br>
+                    <button class="btn" onclick="navigateTo('store')">Go to Store</button>
+                </div>`;
+          return;
+        }
+
+        let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+        let html = `<table class="cart-table">
+                <thead><tr><th>Product</th><th>Price</th></tr></thead>
+                <tbody>`;
+
+        cart.forEach((item) => {
+          html += `<tr><td>${item.name}</td><td>R${item.price}</td></tr>`;
+        });
+
+        html += `</tbody></table>
+            <div class="cart-summary">
+                <h3>Total: R${total}</h3><br>
+                <button class="btn btn-filled" onclick="navigateTo('checkout')">Checkout Now</button>
+            </div>`;
+
+        container.innerHTML = html;
+      }
+
+      function renderCheckoutSummary() {
+        const summaryList = document.getElementById("order-summary-list");
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+        summaryList.innerHTML = cart
+          .map(
+            (item) => `
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.9rem;">
+                    <span>${item.name}</span>
+                    <span>R${item.price}</span>
+                </div>
+            `
+          )
+          .join("");
+
+        document.getElementById("final-total").innerText = `R${total}`;
+      }
+
+      // Final Order Process
+      function processOrder(e) {
+        e.preventDefault();
+        const email = document.getElementById("email-input").value;
+
+        alert(`THANK YOU FOR YOUR ORDER.
+            \nA confirmation email has been sent to ${email}. 
+            \nPlease check your inbox for payment instructions and our bank details to complete your delivery.`);
+
+        cart = [];
+        document.getElementById("cart-count").innerText = "0";
+        navigateTo("home");
+      }
+
+      // Scroll listener for nav
+      window.addEventListener("scroll", () => {
+        const nav = document.getElementById("main-nav");
+        if (
+          window.scrollY > 50 &&
+          document.getElementById("home").classList.contains("active")
+        ) {
+          nav.classList.add("glass");
+          nav.style.color = "black";
+        } else if (
+          window.scrollY <= 50 &&
+          document.getElementById("home").classList.contains("active")
+        ) {
+          nav.classList.remove("glass");
+          nav.style.color = "white";
+        }
+      });
+
+      // Start the site
+      initStore();
+    </script>
+  </body>
+</html>
